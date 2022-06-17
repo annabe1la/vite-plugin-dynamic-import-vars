@@ -13,11 +13,13 @@ npm i vite-plugin-dynamic-import-vars -D
 
 ## Usage
 ```javascript
-import dynamicImport from 'vite-plugin-dynamic-import-vars'
+import importDynamicModule from 'vite-plugin-dynamic-import-vars'
 
 export default {
   plugins: [
-    dynamicImport()
+    importDynamicModule()
   ]
 }
 ```
+
+with some optimize
