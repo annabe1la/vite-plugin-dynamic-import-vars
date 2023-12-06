@@ -1,15 +1,13 @@
-import path from 'path'
+import path from 'node:path'
 import type { Plugin, ResolvedConfig } from 'vite'
 import fastGlob from 'fast-glob'
 import { createFilter } from '@rollup/pluginutils'
 import MagicString from 'magic-string'
 import {cleanUrl} from "vite-plugin-utils";
 import { AliasReplaced, AliasContext} from "./alias"
-import { DynamicImportVars, toDepthGlob, tryFixGlobExtension, tryFixGlobSlash, parseImportExpression } from "./dynamic-import-vars"
-
+import { dynamicImportToGlob } from "./dynamic-import-vars"
 import {extractImportVarsRE, normallyImportVarsRE} from "./utils";
-import {asyncWalk} from "estree-walker";
-import {AcornNode} from "./types";
+import { asyncWalk } from "estree-walker";
 import {generateDynamicImportRuntime, getModuleId} from "./helpers";
 import {ImportExpression} from "estree";
 type GlobHasFiles = {
@@ -81,7 +79,7 @@ export default function importDynamicModule({ include = [], exclude = [], extens
             return
           const globResult = await globFiles(
             dynamicImportVars,
-            <AcornNode>node,
+            <any>node,
             code,
             id,
             globExtensions,
@@ -123,7 +121,7 @@ export default function importDynamicModule({ include = [], exclude = [], extens
 
 async function globFiles(
   dynamicImportVars: DynamicImportVars,
-  ImportExpressionNode: AcornNode,
+  ImportExpressionNode: any,
   sourceString: string,
   id: string,
   extensions: string[],

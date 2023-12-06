@@ -1,8 +1,23 @@
-import type { AcornNode } from 'rollup'
-import {
-  multilineCommentsRE,
-  singlelineCommentsRE,
-} from 'vite-plugin-utils'
+export const multilineCommentsRE = /\/\*(.|[\r\n])*?\*\//gm
+export const singlelineCommentsRE = /\/\/.*/g
+export const queryRE = /\?.*$/s
+export const hashRE = /#.*$/s
+
+export const cleanUrl = (url: string): string =>
+    url.replace(hashRE, '').replace(queryRE, '')
+
+export const JS_EXTENSIONS = [
+  '.mjs',
+  '.js',
+  '.ts',
+  '.jsx',
+  '.tsx',
+  '.cjs'
+]
+export const KNOWN_SFC_EXTENSIONS = [
+  '.vue',
+  '.svelte',
+]
 
 export const dynamicImportRE = /\bimport[\s\r\n]*?\(/
 // this is probably less accurate

@@ -5,6 +5,7 @@
     "lib": [
       "esnext"
     ],
+    "outDir": "./types",
     "moduleResolution": "node",
     "esModuleInterop": true,
     "strict": true,
